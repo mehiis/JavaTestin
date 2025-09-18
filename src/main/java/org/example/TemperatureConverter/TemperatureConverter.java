@@ -26,6 +26,10 @@ public class TemperatureConverter {
         return (celsius * 9 / 5) + 32;
     }
 
+    protected double kelvinToCelsius(double kelvin){
+        return kelvin - 273.15;
+    }
+
     protected boolean isExtremeTemperature(double celsius) {
         /*
          * This method should check if the given Celsius temperature is considered "extreme."
@@ -38,5 +42,7 @@ public class TemperatureConverter {
 
         return (celsius < -40 || celsius > 50);
     }
+
+
 }
 
