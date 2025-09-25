@@ -1,57 +1,50 @@
-pipeline{
+pipeline {
     agent any
     environment {
-            PATH = "C:\\Program Files\\Docker\\Docker\\resources\\bin;${env.PATH}"
+                PATH = "C:\\Program Files\\Docker\\Docker\\resources\\bin;${env.PATH}"
 
-            // Define Docker Hub credentials ID
-            DOCKERHUB_CREDENTIALS_ID = 'Docker_Hub'
-            // Define Docker Hub repository name
-            DOCKERHUB_REPO = 'mehiis/javatestin'
-            // Define Docker image tag
-            DOCKER_IMAGE_TAG = 'latest'
+                // Define Docker Hub credentials ID
+                DOCKERHUB_CREDENTIALS_ID = 'Docker_Hub'
+                // Define Docker Hub repository name
+                DOCKERHUB_REPO = 'mehiiis/javatestin'
+                // Define Docker image tag
+                DOCKER_IMAGE_TAG = 'latest'
+            }
+
+    tools {
+            maven 'MAVEN'
         }
-    tools{
-        maven 'MAVEN'
-    }
-    stages{
-        stage('checking'){
-            steps{
+    stages {
+        stage('checkout') {
+            steps {
                 git branch:'master', url:'https://github.com/mehiis/JavaTestin.git'
             }
         }
-
-        stage ('build'){
+        stage('build') {
             steps {
-              bat  'mvn clean install'
+                bat 'mvn clean install'
             }
         }
-
-  stage('Test') {
+        stage('Test') {
             steps {
                 bat 'mvn test'
             }
         }
         stage('Code Coverage') {
             steps {
-                bat 'mvn jacoco:report'
+                recordCoverage(tools: [[parser: 'JACOCO']],
+                        id: 'jacoco', name: 'JaCoCo Coverage',
+                        sourceCodeRetention: 'EVERY_BUILD',
+                        qualityGates: [
+                                [threshold: 60.0, metric: 'LINE', baseline: 'PROJECT', unstable: true],
+                                [threshold: 60.0, metric: 'BRANCH', baseline: 'PROJECT', unstable: true]])
             }
         }
-        stage('Publish Test Results') {
-            steps {
-                junit '**/target/surefire-reports/*.xml'
-            }
-        }
-        stage('Publish Coverage Report') {
-            steps {
-                jacoco()
-            }
-        }
-
         stage('Build Docker Image') {
-                    steps {
-                        bat 'docker build -t %DOCKERHUB_REPO%:%DOCKER_IMAGE_TAG% .'
-                    }
-                }
+            steps {
+                bat 'docker build -t %DOCKERHUB_REPO%:%DOCKER_IMAGE_TAG% .'
+            }
+        }
 
         stage('Push Docker Image to Docker Hub') {
             steps {
@@ -65,4 +58,6 @@ pipeline{
         }
 
     }
+
+
 }

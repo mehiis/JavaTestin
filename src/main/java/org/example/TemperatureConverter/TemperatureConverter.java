@@ -1,7 +1,7 @@
 package org.example.TemperatureConverter;
 
 public class TemperatureConverter {
-    protected double fahrenheitToCelsius(double fahrenheit) {
+    public double fahrenheitToCelsius(double fahrenheit) {
         /*
          * This method should convert a temperature from Fahrenheit to Celsius using the formula:
          * [ Celsius = (Fahrenheit - 32) \times \frac{5}{9} ]
@@ -13,7 +13,7 @@ public class TemperatureConverter {
         return (fahrenheit - 32) * 5 / 9;
     }
 
-    protected double celsiusToFahrenheit(double celsius) {
+    public double celsiusToFahrenheit(double celsius) {
         /*
          * This method should convert a temperature from Celsius to Fahrenheit using the formula:
          *
@@ -26,11 +26,11 @@ public class TemperatureConverter {
         return (celsius * 9 / 5) + 32;
     }
 
-    protected double kelvinToCelsius(double kelvin){
+    public double kelvinToCelsius(double kelvin){
         return kelvin - 273.15;
     }
 
-    protected boolean isExtremeTemperature(double celsius) {
+    public boolean isExtremeTemperature(double celsius) {
         /*
          * This method should check if the given Celsius temperature is considered "extreme."
          * A temperature is considered extreme if it is:
@@ -43,6 +43,4 @@ public class TemperatureConverter {
         return (celsius < -40 || celsius > 50);
     }
 
-
 }
-

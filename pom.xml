@@ -82,13 +82,11 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>TemperatureConverter</mainClass>
+                            <mainClass>Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
             </plugin>
-
-
         </plugins>
     </build>
 </project>
