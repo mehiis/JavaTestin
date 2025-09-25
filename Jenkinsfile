@@ -6,7 +6,7 @@ pipeline{
             // Define Docker Hub credentials ID
             DOCKERHUB_CREDENTIALS_ID = 'Docker_Hub'
             // Define Docker Hub repository name
-            DOCKERHUB_REPO = 'amirdirin/week6_livedemo_sep1'
+            DOCKERHUB_REPO = 'mehiis/JavaTestin'
             // Define Docker image tag
             DOCKER_IMAGE_TAG = 'latest'
         }
@@ -16,7 +16,7 @@ pipeline{
     stages{
         stage('checking'){
             steps{
-                git branch:'master', url:'https://github.com/ADirin/livedemo_week6_sep1.git'
+                git branch:'master', url:'https://github.com/mehiis/JavaTestin.git'
             }
         }
 
